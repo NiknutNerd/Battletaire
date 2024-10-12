@@ -5,5 +5,5 @@ class Column
     private int xposition
     
     private getXPosition()
-    private Flip()
+    private void Flip()
   }
