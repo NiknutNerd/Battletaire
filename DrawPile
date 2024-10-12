@@ -1,0 +1,12 @@
+class drawPile
+{
+
+private Card[] cards
+
+private void Flip()
+
+private void resetDeck()
+
+
+
+}
