@@ -19,9 +19,9 @@ public class Card {
 	SPADES, CLUBS, DIAMONDS, HEARTS
     }
         
-    private Value value;
-    private Suit suit;
-    private boolean faceUp;
+    public Value value;
+    public Suit suit;
+    public boolean faceUp;
     private Point location;
     private int x;
     private int y;
