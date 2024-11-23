@@ -18,11 +18,18 @@ public class Battletaire {
         Card[] card;
         card = new Card[52];
         createDeck(card);
+        Stack<Card>[] piles = new Stack[7];
+        Stack<Card>[] foundations = new Stack[4];
+        Stack<Card> stock = new Stack<>();
+        Stack<Card> dump = new Stack<>();
+        Stack<Card> extra = new Stack<>();
     }
 
     
-public static boolean checkMove(Card Card1, Card Card2) //Checks if Card1 can be moved on to Card2
+public static boolean checkMove(Card Card1, Card Card2, Stack pile1, Stack pile2) //Checks if Card1 in pile1 can be moved on to Card2 in pile2
     {
+        if(pile1.size()!=pile1.indexOf(Card1) || pile2.size()!=pile2.indexOf(Card2))
+            return false;
         if((Card1.suit==Card.Suit.DIAMONDS || Card1.suit==Card.Suit.HEARTS) 
                 && (Card2.suit==Card.Suit.DIAMONDS || Card2.suit==Card.Suit.HEARTS))
            return false;
@@ -38,14 +45,16 @@ public static boolean checkMove(Card Card1, Card Card2) //Checks if Card1 can be
         return false;
     } // Author: Aidan
 
-    public static boolean checkFoundations(Card Card1, Card Card2) //Checks if Card1 can be moved up to Card2 in a foundation
+    public static boolean checkFoundations(Card Card1, Card Card2, Stack pile) //Checks if Card1 can be moved up to Card2 in a foundation
     {
+        if(pile.size()!=pile.indexOf(Card1))
+            return false;
         if(Card1.suit==Card2.suit && Card2.value.ordinal()+1==Card1.value.ordinal())
             return true;
         return false;
     } // Author: Aidan
 
-public static void createDeck( Card[] card) // Creates randomly ordered deck
+public static void createDeck( Card[] card)
     {   
         Random r = new Random();
           int n = 52, k = 0;
@@ -169,6 +178,89 @@ public static void createDeck( Card[] card) // Creates randomly ordered deck
         k++;
         card[numbers[k]] = new Card(Card.Value.KING,Card.Suit.HEARTS);     
     } // Author: Aidan
-    
+
+    public static void setField(Card[] card, Stack[] piles, Stack stock)
+    {
+        int i=0, j=0, k=0;
+        while(j<28)
+        {
+            while(i<7)
+            {
+                if(i==k)
+                    card[j].faceUp = true;
+                piles[i].push(card[j]);
+                i++;
+                j++;
+            }
+            k++;
+            i=0;
+        }
+        while(j<52)
+        {
+            stock.push(card[j]);
+            j++;
+        }
+    } //author: Aidan
+
+
+    public static void moveCard(Card Card1, Card Card2, Stack pile1, Stack pile2, Stack extra)
+    {
+        int i=0;
+        if(checkMove(Card1, Card2, pile1, pile2))
+        {
+            while(i<pile1.indexOf(Card1))
+            {
+               extra.push(pile1.pop());
+               i++;
+            }
+            while(i>0)
+            {
+                pile2.push(extra.pop());
+                i--;
+            }
+        }
+    } // author: Aidan
+
+    public static void movetoFoundation(Card Card1, Card Card2, Stack pile, Stack foundation)
+    {
+        if(checkFoundations(Card1, Card2, pile))
+            foundation.push(pile.pop());
+    } // author: Aidan
+
+    public static boolean checkVictory(Stack foundation1, Stack foundation2, Stack foundation3, Stack foundation4)
+    {
+        if(foundation1.size()==13 && foundation2.size()==13 && foundation3.size()==13 && foundation4.size()==13)
+            return true;
+        return false;
+    } // author: Aidan
+
+    public static void checkStock(Stack stock, Stack dump)
+    {
+        int i=0;
+        if(stock.size()>3)
+        {
+            while(i<3)
+            {
+                dump.push(stock.pop());
+                i++;
+            }
+        if(stock.size()>0 && stock.size()<3)
+        {
+            while(i<stock.size())
+            {
+                dump.push(stock.pop());
+                i++;
+            }
+        }
+        if(stock.size()==0)
+        {
+            while(i<dump.size())
+            {
+                stock.push(dump.pop());
+                i++;
+            }
+        }
+        }
+    } // author: Aidan
     
 }
