@@ -4,10 +4,8 @@
 
 package group7.battletaire;
 
-/**
- *
- * @author johnm
- */
+import java.util.*;
+
 public class Battletaire {
 
     public static void main(String[] args) {
@@ -15,15 +13,27 @@ public class Battletaire {
         Card testCard2 = new Card();
         System.out.println(testCard.toString());
         System.out.println(testCard2.toString());*/
-        Card[] card;
-        card = new Card[52];
-        createDeck(card);
+        Card[] deck;
+        deck = new Card[52];
+        createDeck(deck);
         Stack<Card>[] piles = new Stack[7];
         Stack<Card>[] foundations = new Stack[4];
         Stack<Card> stock = new Stack<>();
         Stack<Card> dump = new Stack<>();
         Stack<Card> extra = new Stack<>();
-    }
+        
+        for (int i = 0; i < 7; i++) 
+            piles[i] = new Stack<>();
+        for (int i = 0; i < 4; i++) 
+            foundations[i] = new Stack<>();
+        
+        setField(deck, piles, stock);
+        new GameBoard(new Battletaire(), piles, foundations, stock, dump);
+        
+        for(Card e : deck) {
+            System.out.println(e.toString());
+        }   
+    } // Author: Aidan, John
 
     
 public static boolean checkMove(Card Card1, Card Card2, Stack pile1, Stack pile2) //Checks if Card1 in pile1 can be moved on to Card2 in pile2
@@ -54,7 +64,7 @@ public static boolean checkMove(Card Card1, Card Card2, Stack pile1, Stack pile2
         return false;
     } // Author: Aidan
 
-public static void createDeck( Card[] card)
+public static void createDeck( Card[] deck)
     {   
         Random r = new Random();
           int n = 52, k = 0;
@@ -74,112 +84,112 @@ public static void createDeck( Card[] card)
             numbers[j] = temp;
         }
         k=0;
-        card[numbers[k]] = new Card(Card.Value.ACE,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.ACE,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.TWO,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.TWO,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.THREE,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.THREE,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.FOUR,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.FOUR,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.FIVE,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.FIVE,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.SIX,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.SIX,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.SEVEN,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.SEVEN,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.EIGHT,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.EIGHT,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.NINE,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.NINE,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.TEN,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.TEN,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.JACK,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.JACK,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.QUEEN,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.QUEEN,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.KING,Card.Suit.SPADES);
+        deck[numbers[k]] = new Card(Card.Value.KING,Card.Suit.SPADES);
         k++;
-        card[numbers[k]] = new Card(Card.Value.ACE,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.ACE,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.TWO,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.TWO,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.THREE,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.THREE,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.FOUR,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.FOUR,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.FIVE,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.FIVE,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.SIX,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.SIX,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.SEVEN,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.SEVEN,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.EIGHT,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.EIGHT,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.NINE,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.NINE,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.TEN,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.TEN,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.JACK,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.JACK,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.QUEEN,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.QUEEN,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.KING,Card.Suit.CLUBS);
+        deck[numbers[k]] = new Card(Card.Value.KING,Card.Suit.CLUBS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.ACE,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.ACE,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.TWO,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.TWO,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.THREE,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.THREE,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.FOUR,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.FOUR,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.FIVE,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.FIVE,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.SIX,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.SIX,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.SEVEN,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.SEVEN,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.EIGHT,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.EIGHT,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.NINE,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.NINE,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.TEN,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.TEN,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.JACK,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.JACK,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.QUEEN,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.QUEEN,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.KING,Card.Suit.DIAMONDS);
+        deck[numbers[k]] = new Card(Card.Value.KING,Card.Suit.DIAMONDS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.ACE,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.ACE,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.TWO,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.TWO,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.THREE,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.THREE,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.FOUR,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.FOUR,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.FIVE,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.FIVE,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.SIX,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.SIX,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.SEVEN,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.SEVEN,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.EIGHT,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.EIGHT,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.NINE,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.NINE,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.TEN,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.TEN,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.JACK,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.JACK,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.QUEEN,Card.Suit.HEARTS);
+        deck[numbers[k]] = new Card(Card.Value.QUEEN,Card.Suit.HEARTS);
         k++;
-        card[numbers[k]] = new Card(Card.Value.KING,Card.Suit.HEARTS);     
+        deck[numbers[k]] = new Card(Card.Value.KING,Card.Suit.HEARTS);     
     } // Author: Aidan
 
-    public static void setField(Card[] card, Stack[] piles, Stack stock)
+    public static void setField(Card[] deck, Stack[] piles, Stack stock)
     {
         int i=0, j=0, k=0;
         while(j<28)
@@ -187,8 +197,8 @@ public static void createDeck( Card[] card)
             while(i<7)
             {
                 if(i==k)
-                    card[j].faceUp = true;
-                piles[i].push(card[j]);
+                    deck[j].faceUp = true;
+                piles[i].push(deck[j]);
                 i++;
                 j++;
             }
@@ -197,7 +207,7 @@ public static void createDeck( Card[] card)
         }
         while(j<52)
         {
-            stock.push(card[j]);
+            stock.push(deck[j]);
             j++;
         }
     } //author: Aidan
