@@ -192,6 +192,21 @@ public static void createDeck( Card[] deck)
 
     public static void setField(Card[] deck, Stack[] piles, Stack stock)
     {
+        int cardsDealt = 0;
+        for(int col = 0; col < 7; col++){
+            for(int row = 0; row <= col; row++){
+                if(row == col){
+                    deck[cardsDealt].faceUp = true;
+                }
+                piles[col].push(deck[cardsDealt]);
+                cardsDealt++;
+            }
+        }
+        while(cardsDealt < 52){
+            stock.push(deck[cardsDealt]);
+            cardsDealt++;
+        }
+        /*
         int i=0, j=0, k=0;
         while(j<28)
         {
@@ -206,12 +221,14 @@ public static void createDeck( Card[] deck)
             k++;
             i=0;
         }
+
         while(j<52)
         {
             stock.push(deck[j]);
             j++;
         }
-    } //author: Aidan
+        */
+    } //author: Aidan + Nikki
 
 
     public static void moveCard(Card card, Stack<Card> fromPile, Stack<Card> toPile) {
