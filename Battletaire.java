@@ -206,28 +206,6 @@ public static void createDeck( Card[] deck)
             stock.push(deck[cardsDealt]);
             cardsDealt++;
         }
-        /*
-        int i=0, j=0, k=0;
-        while(j<28)
-        {
-            while(i<7)
-            {
-                if(k == 3)
-                    deck[j].faceUp = true;
-                piles[i].push(deck[j]);
-                i++;
-                j++;
-            }
-            k++;
-            i=0;
-        }
-
-        while(j<52)
-        {
-            stock.push(deck[j]);
-            j++;
-        }
-        */
     } //author: Aidan + Nikki
 
 
