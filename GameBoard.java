@@ -17,20 +17,19 @@ public class GameBoard extends JComponent implements MouseListener {
     private static final int FACE_UP_OFFSET = 40;
     private static final int FACE_DOWN_OFFSET = 25;
 
-    private JFrame frame;
+    private final JFrame frame;
     private int selectedRow = -1;
     private int selectedCol = -1;
-    private Battletaire game;
-    private Stack<Card>[] piles;
-    private Stack<Card>[] foundations;
-    private Stack<Card> stock;
-    private Stack<Card> dump;
+    private final Battletaire game;
+    private final Stack<Card>[] piles;
+    private final Stack<Card>[] foundations;
+    private final Stack<Card> stock;
+    private final Stack<Card> dump;
 	public boolean x = false;
 
-	public void drawEnd()
-	    {
-	        x = true;
-	    }
+	public void drawEnd(){
+	    x = true;
+    }
 	
 
     public GameBoard(Battletaire game, Stack<Card>[] piles, Stack<Card>[] foundations, Stack<Card> stock, Stack<Card> dump) {
@@ -80,8 +79,6 @@ public class GameBoard extends JComponent implements MouseListener {
         if (selectedRow == 0 && selectedCol == 1)
             drawBorder(g, SPACING * 2 + CARD_WIDTH, SPACING);
 
-
-
         // Draw foundations
         for (int i = 0; i < 4; i++) {
             drawCard(g, foundations[i].isEmpty() ? null : foundations[i].peek(), SPACING * (4 + i) + CARD_WIDTH * (3 + i), SPACING);
@@ -101,12 +98,11 @@ public class GameBoard extends JComponent implements MouseListener {
                     drawBorder(g, SPACING + (CARD_WIDTH + SPACING) * i, CARD_HEIGHT + 2 * SPACING + offset - FACE_UP_OFFSET);
             }
         }
-	    if(x==true)
-        {
+	    if(x){
             Image endImage = new ImageIcon("PlayingCards/Game_Over.jpg").getImage();
-        if(endImage == null)
-            System.out.println("Background DNE");
-        g.drawImage(endImage, 0, 0, getWidth(), getHeight(), this);
+            if(endImage == null)
+                System.out.println("Background DNE");
+            g.drawImage(endImage, 0, 0, getWidth(), getHeight(), this);
         } 
     }
 
@@ -174,7 +170,6 @@ public class GameBoard extends JComponent implements MouseListener {
                 game.pileClicked(col);
         repaint();
     }
-    
 
     public void unselect() {
         selectedRow = -1;
