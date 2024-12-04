@@ -26,7 +26,12 @@ public class GameBoard extends JComponent implements MouseListener {
     private Stack<Card> stock;
     private Stack<Card> dump;
 	public boolean x = false;
-    
+
+	public void drawEnd()
+	    {
+	        x = true;
+	    }
+	
 
     public GameBoard(Battletaire game, Stack<Card>[] piles, Stack<Card>[] foundations, Stack<Card> stock, Stack<Card> dump) {
         this.game = game;
