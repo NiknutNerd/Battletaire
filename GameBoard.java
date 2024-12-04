@@ -25,6 +25,7 @@ public class GameBoard extends JComponent implements MouseListener {
     private Stack<Card>[] foundations;
     private Stack<Card> stock;
     private Stack<Card> dump;
+	public boolean x = false;
     
 
     public GameBoard(Battletaire game, Stack<Card>[] piles, Stack<Card>[] foundations, Stack<Card> stock, Stack<Card> dump) {
@@ -102,6 +103,13 @@ public class GameBoard extends JComponent implements MouseListener {
                     drawBorder(g, SPACING + (CARD_WIDTH + SPACING) * i, CARD_HEIGHT + 2 * SPACING + offset - FACE_UP_OFFSET);
             }
         }
+	    if(x==true)
+        {
+            Image endImage = new ImageIcon("PlayingCards/Game_Over.jpg").getImage();
+        if(endImage == null)
+            System.out.println("Background DNE");
+        g.drawImage(endImage, 0, 0, getWidth(), getHeight(), this);
+        } 
     }
 
     private void drawCard(Graphics g, Card card, int x, int y) {

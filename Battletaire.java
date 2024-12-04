@@ -312,13 +312,28 @@ public static void createDeck( Card[] deck)
 
     public void foundationClicked(int index) {
 		System.out.println("foundation #" + index + " clicked");
+                
         if (board.isDumpSelected())
         {
+            
             if (canPlaceOnFoundation(dump.peek(), index))
             {
                 Card temp = dump.pop();
                 foundations[index].push(temp);
                 board.unselect();
+                if(temp.getRank() == 1){
+                    boolean toEnd = true;
+                    for(int i = 0; i < 4; i++){
+                        if (foundations[i].peek().getRank() != 13){
+                            //Dont go to end screen
+                            toEnd = false;
+                            break;
+                        }
+                    }
+                    if(toEnd){
+                        board.drawEnd();
+                    }
+                }
             }
         }
         if (board.isPileSelected())
@@ -330,6 +345,21 @@ public static void createDeck( Card[] deck)
                 foundations[index].push(temp);
                 if (!selectedPile.isEmpty()) selectedPile.peek().turnUp();
                 board.unselect();
+                if(temp.getRank() == 13)
+                {
+                    boolean toEnd = true;
+                    for(int i = 0; i < 4; i++){
+                        if (foundations[i].peek().getRank() != 13){
+                            //Dont go to end screen
+                            toEnd = false;
+                            break;
+                        }
+                    }
+                    if(toEnd){
+                        board.drawEnd();
+                    }
+                }
+                
             }
 
         }
