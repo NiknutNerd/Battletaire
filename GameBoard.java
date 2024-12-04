@@ -62,13 +62,6 @@ public class GameBoard extends JComponent implements MouseListener {
            drawBorder(g, SPACING * 2 + CARD_WIDTH, SPACING);
 
         // Draw dump
-
-        //drawCard(g, dump.isEmpty() ? null : dump.peek(), SPACING * 2 + CARD_WIDTH, SPACING);
-        //if (selectedRow == 0 && selectedCol == 1)
-            //drawBorder(g, SPACING * 2 + CARD_WIDTH, SPACING);
-
-
-
         Card card1 = dump.isEmpty() ? null : dump.pop();
         Card card2 = dump.isEmpty() ? null : dump.pop();
         Card card3 = dump.isEmpty() ? null : dump.pop();
