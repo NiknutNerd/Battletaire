@@ -96,7 +96,8 @@ public class Battletaire {
     }
     
     public void resetStock(){
-        while (!dump.isEmpty()){
+        while (!(dump.peek() == null)){
+            System.out.println("Dump to Stock: " + dump.peek());
             Card temp = dump.pop();
             temp.turnDown();
             stock.push(temp);
@@ -106,7 +107,7 @@ public class Battletaire {
     public void stockClicked() {
         System.out.println("stock clicked");
         board.unselect();
-        if (! board.isDumpSelected() && ! board.isPileSelected()) {
+        if (!board.isDumpSelected() && !board.isPileSelected()) {
             if (stock.isEmpty()) 
                 resetStock();
             else 
