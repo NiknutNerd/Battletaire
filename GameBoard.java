@@ -58,12 +58,30 @@ public class GameBoard extends JComponent implements MouseListener {
         // Draw stock
         drawCard(g, stock.isEmpty() ? null : stock.peek(), SPACING, SPACING);
         if (selectedRow == 0 && selectedCol == 1)
-            drawBorder(g, SPACING * 2 + CARD_WIDTH, SPACING);
+           drawBorder(g, SPACING * 2 + CARD_WIDTH, SPACING);
 
         // Draw dump
+
         drawCard(g, dump.isEmpty() ? null : dump.peek(), SPACING * 2 + CARD_WIDTH, SPACING);
         if (selectedRow == 0 && selectedCol == 1)
             drawBorder(g, SPACING * 2 + CARD_WIDTH, SPACING);
+
+
+        /*
+        Card card3 = dump.isEmpty() ? null : dump.pop();
+        Card card2 = dump.isEmpty() ? null : dump.pop();
+        Card card1 = dump.isEmpty() ? null : dump.pop();
+        drawCard(g, dump.isEmpty() ? null : card1, SPACING * 4 + CARD_WIDTH, SPACING);
+        drawCard(g, dump.isEmpty() ? null : card2, SPACING * 3 + CARD_WIDTH, SPACING);
+        drawCard(g, dump.isEmpty() ? null : card3, SPACING * 2 + CARD_WIDTH, SPACING);
+        dump.push(card3);
+        dump.push(card2);
+        dump.push(card1);
+
+        if (selectedRow == 0 && selectedCol == 1)
+            drawBorder(g, SPACING * 2 + CARD_WIDTH, SPACING);
+
+         */
 
         // Draw foundations
         for (int i = 0; i < 4; i++) {
@@ -134,7 +152,7 @@ public class GameBoard extends JComponent implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         int col = e.getX() / (SPACING + CARD_WIDTH);
-	int row = e.getY() / (SPACING + CARD_HEIGHT);
+	    int row = e.getY() / (SPACING + CARD_HEIGHT);
 
         if (row > 1)
             row = 1;
