@@ -105,7 +105,7 @@ public class GameBoard extends JComponent implements MouseListener {
         }
 	    if(x==true)
         {
-            Image endImage = new ImageIcon("PlayingCards/Background2.jpg").getImage();
+            Image endImage = new ImageIcon("PlayingCards/Game_Over.jpg").getImage();
         if(endImage == null)
             System.out.println("Background DNE");
         g.drawImage(endImage, 0, 0, getWidth(), getHeight(), this);
