@@ -36,26 +36,6 @@ public class Battletaire {
         }   
     } // Author: Aidan
 
-    
-public static boolean checkMove(Card Card1, Card Card2, Stack pile1, Stack pile2) //Checks if Card1 in pile1 can be moved on to Card2 in pile2
-    {
-        if(pile1.size()!=pile1.indexOf(Card1) || pile2.size()!=pile2.indexOf(Card2))
-            return false;
-        if((Card1.suit==Card.Suit.DIAMONDS || Card1.suit==Card.Suit.HEARTS) 
-                && (Card2.suit==Card.Suit.DIAMONDS || Card2.suit==Card.Suit.HEARTS))
-           return false;
-     
-        if((Card1.suit==Card.Suit.CLUBS || Card1.suit==Card.Suit.SPADES) 
-                && (Card2.suit==Card.Suit.CLUBS || Card2.suit==Card.Suit.SPADES))
-           return false;
-        if(Card1.value==Card.Value.ACE)
-            return false;
-        
-        if(Card1.value.ordinal()+1==Card2.value.ordinal())
-            return true;
-        return false;
-    } // Author: Aidan
-
     public static boolean checkFoundations(Card Card1, Card Card2, Stack pile) //Checks if Card1 can be moved up to Card2 in a foundation
     {
         if(pile.size()!=pile.indexOf(Card1))
@@ -65,7 +45,7 @@ public static boolean checkMove(Card Card1, Card Card2, Stack pile1, Stack pile2
         return false;
     } // Author: Aidan
 
-public static void createDeck( Card[] deck)
+    public static void createDeck( Card[] deck)
     {   
         Random r = new Random();
           int n = 52, k = 0;
@@ -111,48 +91,6 @@ public static void createDeck( Card[] deck)
             cardsDealt++;
         }
     } //author: Aidan, Nikki
-
-
-    public static void moveCard(Card card, Stack<Card> fromPile, Stack<Card> toPile) {
-        Stack<Card> temp = new Stack<>();
-        while (!fromPile.isEmpty() && fromPile.peek().equals(card)) {
-            temp.push(fromPile.pop());
-        }
-        if (!temp.isEmpty() && checkMove(temp.peek(), toPile.peek(), fromPile, toPile)) {
-            while (!temp.isEmpty()) {
-                toPile.push(temp.pop());
-            }
-        } else {
-            while (!temp.isEmpty()) {
-                fromPile.push(temp.pop());
-            }
-        }
-    }// author: Aidan, John
-
-    public static void movetoFoundation(Card Card1, Card Card2, Stack pile, Stack foundation)
-    {
-        if(checkFoundations(Card1, Card2, pile))
-            foundation.push(pile.pop());
-    } // author: Aidan
-
-    public static boolean checkVictory(Stack foundation1, Stack foundation2, Stack foundation3, Stack foundation4)
-    {
-        if(foundation1.size()==13 && foundation2.size()==13 && foundation3.size()==13 && foundation4.size()==13)
-            return true;
-        return false;
-    } // author: Aidan
-
-    public static void checkStock(Stack<Card> stock, Stack<Card> dump) {
-        if (stock.isEmpty()) {
-            while (!dump.isEmpty()) {
-                stock.push(dump.pop());
-            }
-        } else {
-            for (int i = 0; i < 3 && !stock.isEmpty(); i++) {
-                dump.push(stock.pop());
-            }
-        }
-    } // author: Aidan, John
     
     public void dealThreeCards()
     {
@@ -190,14 +128,13 @@ public static void createDeck( Card[] deck)
 
     public void dumpClicked() {
         System.out.println("dump clicked");
-        if(!dump.isEmpty()) {
-            if(!board.isDumpSelected()) 
+        if (!dump.isEmpty()) {
+            if (!board.isDumpSelected())
                 board.selectDump();
-            else 
+            else
                 board.unselect();
         }
     }
-    
         
     private boolean canPlaceOnFoundation(Card card, int index) {
         if (foundations[index].isEmpty()) 
@@ -216,10 +153,8 @@ public static void createDeck( Card[] deck)
 
     public void foundationClicked(int index) {
 		System.out.println("foundation #" + index + " clicked");
-                
         if (board.isDumpSelected())
         {
-            
             if (canPlaceOnFoundation(dump.peek(), index))
             {
                 Card temp = dump.pop();
@@ -263,15 +198,7 @@ public static void createDeck( Card[] deck)
                         board.drawEnd();
                     }
                 }
-                
             }
-
-        }
-    }
-    
-    private void removeSelectedCardFromSource() {
-        if (selectedSource != null) {
-            selectedSource.pop(); // Remove the card from its source stack
         }
     }
 
@@ -315,36 +242,6 @@ public static void createDeck( Card[] deck)
         }
     }
     
-    private void moveCardToPile(Card card, Stack<Card> pile) {
-        Stack<Card> tempStack = new Stack<>();
-        while (!selectedSource.isEmpty() && selectedSource.peek() != card) {
-            tempStack.push(selectedSource.pop());
-        }
-        if (!selectedSource.isEmpty()) {
-            tempStack.push(selectedSource.pop());
-        }
-        while (!tempStack.isEmpty()) {
-            pile.push(tempStack.pop());
-        }
-    }
-    
-    private Card selectGroupOfCards(Stack<Card> pile, int index) {
-        Stack<Card> tempStack = new Stack<>();
-        Card topCard = pile.peek();
-
-        while (!pile.isEmpty() && isPartOfDescendingSequence(pile.peek(), topCard)) {
-            tempStack.push(pile.pop());
-        }
-        while (!tempStack.isEmpty()) {
-            pile.push(tempStack.pop());
-        }
-        return topCard;
-    }
-
-    private boolean isPartOfDescendingSequence(Card card, Card topCard) {
-        return card.getRank() == topCard.getRank() - 1 && card.getColor() != topCard.getColor();
-    }
-    
     private void addToPile(Stack<Card> cards, int index)
     {
         while (!cards.isEmpty())
@@ -362,4 +259,111 @@ public static void createDeck( Card[] deck)
         }
         return cards;
     }
+
+    //Large amount of unused functions
+    @Deprecated
+    public static boolean checkMove(Card Card1, Card Card2, Stack pile1, Stack pile2) //Checks if Card1 in pile1 can be moved on to Card2 in pile2
+    {
+        if(pile1.size()!=pile1.indexOf(Card1) || pile2.size()!=pile2.indexOf(Card2))
+            return false;
+        if((Card1.suit==Card.Suit.DIAMONDS || Card1.suit==Card.Suit.HEARTS)
+                && (Card2.suit==Card.Suit.DIAMONDS || Card2.suit==Card.Suit.HEARTS))
+            return false;
+
+        if((Card1.suit==Card.Suit.CLUBS || Card1.suit==Card.Suit.SPADES)
+                && (Card2.suit==Card.Suit.CLUBS || Card2.suit==Card.Suit.SPADES))
+            return false;
+        if(Card1.value==Card.Value.ACE)
+            return false;
+
+        if(Card1.value.ordinal()+1==Card2.value.ordinal())
+            return true;
+        return false;
+    } // Author: Aidan
+
+    @Deprecated
+    public static void moveCard(Card card, Stack<Card> fromPile, Stack<Card> toPile) {
+        Stack<Card> temp = new Stack<>();
+        while (!fromPile.isEmpty() && fromPile.peek().equals(card)) {
+            temp.push(fromPile.pop());
+        }
+        if (!temp.isEmpty() && checkMove(temp.peek(), toPile.peek(), fromPile, toPile)) {
+            while (!temp.isEmpty()) {
+                toPile.push(temp.pop());
+            }
+        } else {
+            while (!temp.isEmpty()) {
+                fromPile.push(temp.pop());
+            }
+        }
+    }// author: Aidan, John
+
+    @Deprecated
+    public static void movetoFoundation(Card Card1, Card Card2, Stack pile, Stack foundation)
+    {
+        if(checkFoundations(Card1, Card2, pile))
+            foundation.push(pile.pop());
+    } // author: Aidan
+
+    @Deprecated
+    public static boolean checkVictory(Stack foundation1, Stack foundation2, Stack foundation3, Stack foundation4)
+    {
+        if(foundation1.size()==13 && foundation2.size()==13 && foundation3.size()==13 && foundation4.size()==13)
+            return true;
+        return false;
+    } // author: Aidan
+
+    @Deprecated
+    public static void checkStock(Stack<Card> stock, Stack<Card> dump) {
+        if (stock.isEmpty()) {
+            while (!dump.isEmpty()) {
+                stock.push(dump.pop());
+            }
+        } else {
+            for (int i = 0; i < 3 && !stock.isEmpty(); i++) {
+                dump.push(stock.pop());
+            }
+        }
+    } // author: Aidan, John
+
+    @Deprecated
+    private void removeSelectedCardFromSource() {
+        if (selectedSource != null) {
+            selectedSource.pop(); // Remove the card from its source stack
+        }
+    }
+
+    @Deprecated
+    private void moveCardToPile(Card card, Stack<Card> pile) {
+        Stack<Card> tempStack = new Stack<>();
+        while (!selectedSource.isEmpty() && selectedSource.peek() != card) {
+            tempStack.push(selectedSource.pop());
+        }
+        if (!selectedSource.isEmpty()) {
+            tempStack.push(selectedSource.pop());
+        }
+        while (!tempStack.isEmpty()) {
+            pile.push(tempStack.pop());
+        }
+    }
+
+    @Deprecated
+    private Card selectGroupOfCards(Stack<Card> pile, int index) {
+        Stack<Card> tempStack = new Stack<>();
+        Card topCard = pile.peek();
+
+        while (!pile.isEmpty() && isPartOfDescendingSequence(pile.peek(), topCard)) {
+            tempStack.push(pile.pop());
+        }
+        while (!tempStack.isEmpty()) {
+            pile.push(tempStack.pop());
+        }
+        return topCard;
+    }
+
+    @Deprecated
+    private boolean isPartOfDescendingSequence(Card card, Card topCard) {
+        return card.getRank() == topCard.getRank() - 1 && card.getColor() != topCard.getColor();
+    }
+
 }
