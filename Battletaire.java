@@ -164,7 +164,7 @@ public class Battletaire {
         }
         if (board.isPileSelected()) {
             Stack<Card> selectedPile = piles[board.selectedPile()];
-            if (canPlaceOnFoundation(selectedPile.peek(), index)) {
+            if (!selectedPile.isEmpty() && canPlaceOnFoundation(selectedPile.peek(), index)) {
                 Card temp = selectedPile.pop();
                 foundations[index].push(temp);
                 if (!selectedPile.isEmpty()) selectedPile.peek().turnUp();
@@ -201,9 +201,8 @@ public class Battletaire {
             int oldPile = board.selectedPile();
             if (index != oldPile) {
                 Stack<Card> temp = removeFaceUpCards(oldPile);
-                if (canPlaceOnPile(temp.peek(), index)) {
+                if (!temp.isEmpty() && canPlaceOnPile(temp.peek(), index)) {
                     addToPile(temp, index);if (!piles[oldPile].isEmpty()) piles[oldPile].peek().turnUp();
-
                     board.unselect();
                 }
                 else {
@@ -216,7 +215,9 @@ public class Battletaire {
         }
         else {
             board.selectPile(index);
-            piles[index].peek().turnUp();
+            if(!piles[index].isEmpty()){
+                piles[index].peek().turnUp();
+            }
         }
     }
     

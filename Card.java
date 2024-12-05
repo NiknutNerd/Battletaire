@@ -1,21 +1,17 @@
 package group7.battletaire;
 
-import java.awt.Point;
-
 public class Card {
-    public static enum Value {
-	ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING
+    public enum Value {
+	    ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING
     }
 
-    public static enum Suit {
-	SPADES, CLUBS, DIAMONDS, HEARTS
+    public enum Suit {
+	    SPADES, CLUBS, DIAMONDS, HEARTS
     }
         
     public Value value;
     public Suit suit;
     public boolean faceUp;
-    private int x;
-    private int y;
         
     Card() {
         value = Card.Value.ACE;
@@ -54,10 +50,8 @@ public class Card {
     }
     
     public boolean getColor() {
-        if((suit == Card.Suit.SPADES) || (suit == Card.Suit.CLUBS))
-            return false;
-        else
-            return true;
+        //True is red, False is black
+        return (suit != Suit.SPADES) && (suit != Suit.CLUBS);
     }
     
     public String toString() {
