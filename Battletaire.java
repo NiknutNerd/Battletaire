@@ -135,9 +135,9 @@ public class Battletaire {
     private boolean canPlaceOnPile(Card card, int index) {
         Stack<Card> pile = piles[index];
         if (pile.isEmpty()) return (card.getRank() == 13);
-            Card top = pile.peek();
+        Card top = pile.peek();
         if (! top.getFaceUp()) return false;
-            return (card.getColor() != top.getColor()) && (card.getRank() == top.getRank() - 1);
+        return (card.getColor() != top.getColor()) && (card.getRank() == top.getRank() - 1);
     }
 
     public void foundationClicked(int index) {
@@ -182,7 +182,18 @@ public class Battletaire {
                         board.drawEnd();
                     }
                 }
+            }else{
+                board.unselect();
             }
+        }else if(board.isFoundationSelected()){
+            int oldFoundation = board.selectedFoundation();
+            if(oldFoundation == index){
+                board.unselect();
+            } else{
+                board.selectFoundation(index);
+            }
+        } else{
+            board.selectFoundation(index);
         }
     }
 
@@ -202,7 +213,8 @@ public class Battletaire {
             if (index != oldPile) {
                 Stack<Card> temp = removeFaceUpCards(oldPile);
                 if (!temp.isEmpty() && canPlaceOnPile(temp.peek(), index)) {
-                    addToPile(temp, index);if (!piles[oldPile].isEmpty()) piles[oldPile].peek().turnUp();
+                    addToPile(temp, index);
+                    if (!piles[oldPile].isEmpty()) piles[oldPile].peek().turnUp();
                     board.unselect();
                 }
                 else {
@@ -212,8 +224,13 @@ public class Battletaire {
                 }
             }
             else board.unselect();
-        }
-        else {
+        }else if (board.isFoundationSelected()){
+            if(!foundations[board.selectedFoundation()].isEmpty() && canPlaceOnPile(foundations[board.selectedFoundation()].peek(), index)){
+                piles[index].push(foundations[board.selectedFoundation()].pop());
+            }
+            board.unselect();
+            board.selectPile(index);
+        }else {
             board.selectPile(index);
             if(!piles[index].isEmpty()){
                 piles[index].peek().turnUp();
@@ -229,7 +246,7 @@ public class Battletaire {
     
     private Stack<Card> removeFaceUpCards(int index){
         Stack<Card> cards = new Stack<Card>();
-        while (! piles[index].isEmpty() && piles[index].peek().getFaceUp()) {
+        while (!piles[index].isEmpty() && piles[index].peek().getFaceUp()) {
             cards.push(piles[index].pop());
         }
         return cards;

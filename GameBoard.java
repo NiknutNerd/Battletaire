@@ -82,6 +82,9 @@ public class GameBoard extends JComponent implements MouseListener {
         // Draw foundations
         for (int i = 0; i < 4; i++) {
             drawCard(g, foundations[i].isEmpty() ? null : foundations[i].peek(), SPACING * (4 + i) + CARD_WIDTH * (3 + i), SPACING);
+            if(selectedRow == 0 && selectedCol == i + 3){
+                drawBorder(g, SPACING + (CARD_WIDTH + SPACING) * (i + 3), SPACING);
+            }
         }
 
         // Draw piles
@@ -98,6 +101,7 @@ public class GameBoard extends JComponent implements MouseListener {
                     drawBorder(g, SPACING + (CARD_WIDTH + SPACING) * i, CARD_HEIGHT + 2 * SPACING + offset - FACE_UP_OFFSET);
             }
         }
+
 	    if(x){
             Image endImage = new ImageIcon("PlayingCards/Game_Over.jpg").getImage();
             if(endImage == null)
@@ -199,5 +203,22 @@ public class GameBoard extends JComponent implements MouseListener {
     public void selectPile(int index){
         selectedRow = 1;
         selectedCol = index;
+    }
+
+    public boolean isFoundationSelected(){
+        return selectedRow == 0 && selectedCol >= 3;
+    }
+
+    public int selectedFoundation(){
+        if(selectedRow == 0 && selectedCol >= 3){
+            return selectedCol - 3;
+        }else{
+            return -1;
+        }
+    }
+
+    public void selectFoundation(int index){
+        selectedRow = 0;
+        selectedCol = index + 3;
     }
 }
