@@ -211,6 +211,7 @@ public class Battletaire {
         else if (board.isPileSelected()) {
             int oldPile = board.selectedPile();
             if (index != oldPile) {
+                /*
                 Stack<Card> temp = removeFaceUpCards(oldPile);
                 if (!temp.isEmpty() && canPlaceOnPile(temp.peek(), index)) {
                     addToPile(temp, index);
@@ -219,6 +220,15 @@ public class Battletaire {
                 }
                 else {
                     addToPile(temp, oldPile);
+                    board.unselect();
+                    board.selectPile(index);
+                }
+                */
+                if(!piles[oldPile].isEmpty()){
+                    checkMoves(oldPile, index);
+                    if (!piles[oldPile].isEmpty()) piles[oldPile].peek().turnUp();
+                    board.unselect();
+                }else{
                     board.unselect();
                     board.selectPile(index);
                 }
@@ -250,6 +260,38 @@ public class Battletaire {
             cards.push(piles[index].pop());
         }
         return cards;
+    }
+
+    public void checkMoves (int donorIndex, int targetIndex){
+        //Check target faceup card
+        //Check if a subset of the donor stack can move to target
+        Stack<Card> donor = piles[donorIndex];
+        Stack<Card> faceUp = new Stack<Card>();
+
+        Card targetCard = piles[targetIndex].isEmpty() ? null : piles[targetIndex].peek();
+        Card top = donor.peek();
+
+        while(!donor.isEmpty() && donor.peek().getFaceUp()){
+            faceUp.push(donor.pop());
+            //Gives an inverted list of face up cards
+        }
+
+        if(faceUp.peek().getRank() == 13 && piles[targetIndex].isEmpty()){
+            while(!faceUp.isEmpty()){
+                piles[targetIndex].push(faceUp.pop());
+            }
+        } else if((top.getRank() < targetCard.getRank()) && (targetCard.getColor() == top.getColor()) == (targetCard.getRank() % 2 == top.getRank() % 2)){
+            for(int i = faceUp.size() + top.getRank(); i > targetCard.getRank(); i--){
+                piles[donorIndex].push(faceUp.pop());
+            }
+            while(!faceUp.isEmpty()){
+                piles[targetIndex].push(faceUp.pop());
+            }
+        } else{
+            while(!faceUp.isEmpty()){
+                piles[donorIndex].push(faceUp.pop());
+            }
+        }
     }
 
     //Large amount of unused functions
