@@ -162,7 +162,7 @@ public class Battletaire {
                 }
             }
         }
-        if (board.isPileSelected()) {
+        else if (board.isPileSelected()) {
             Stack<Card> selectedPile = piles[board.selectedPile()];
             if (!selectedPile.isEmpty() && canPlaceOnFoundation(selectedPile.peek(), index)) {
                 Card temp = selectedPile.pop();
@@ -206,7 +206,7 @@ public class Battletaire {
                 piles[index].peek().turnUp();
             }
             board.unselect();
-            board.selectPile(index);
+            //board.selectPile(index);
         }
         else if (board.isPileSelected()) {
             int oldPile = board.selectedPile();
@@ -239,28 +239,14 @@ public class Battletaire {
                 piles[index].push(foundations[board.selectedFoundation()].pop());
             }
             board.unselect();
-            board.selectPile(index);
+            //board.selectPile(index);
         }else {
             board.selectPile(index);
             if(!piles[index].isEmpty()){
                 piles[index].peek().turnUp();
             }
         }
-    }
-    
-    private void addToPile(Stack<Card> cards, int index) {
-        while (!cards.isEmpty()) {
-            piles[index].push(cards.pop());
-        }
-    }
-    
-    private Stack<Card> removeFaceUpCards(int index){
-        Stack<Card> cards = new Stack<Card>();
-        while (!piles[index].isEmpty() && piles[index].peek().getFaceUp()) {
-            cards.push(piles[index].pop());
-        }
-        return cards;
-    }
+    }// John, Nikki
 
     public void checkMoves (int donorIndex, int targetIndex){
         //Check target faceup card
@@ -280,7 +266,8 @@ public class Battletaire {
             while(!faceUp.isEmpty()){
                 piles[targetIndex].push(faceUp.pop());
             }
-        } else if((top.getRank() < targetCard.getRank()) && (targetCard.getColor() == top.getColor()) == (targetCard.getRank() % 2 == top.getRank() % 2)){
+        } else if((top.getRank() < targetCard.getRank()) && top.getRank() + faceUp.size() >= targetCard.getRank()
+                && (targetCard.getColor() == top.getColor()) == (targetCard.getRank() % 2 == top.getRank() % 2)){
             for(int i = faceUp.size() + top.getRank(); i > targetCard.getRank(); i--){
                 piles[donorIndex].push(faceUp.pop());
             }
@@ -292,7 +279,7 @@ public class Battletaire {
                 piles[donorIndex].push(faceUp.pop());
             }
         }
-    }
+    } //Nikki
 
     //Large amount of unused functions
     /*
@@ -395,6 +382,22 @@ public class Battletaire {
     @Deprecated
     private boolean isPartOfDescendingSequence(Card card, Card topCard) {
         return card.getRank() == topCard.getRank() - 1 && card.getColor() != topCard.getColor();
+    }
+
+    @Deprecated
+    private void addToPile(Stack<Card> cards, int index) {
+        while (!cards.isEmpty()) {
+            piles[index].push(cards.pop());
+        }
+    }
+
+    @Deprecated
+    private Stack<Card> removeFaceUpCards(int index){
+        Stack<Card> cards = new Stack<Card>();
+        while (!piles[index].isEmpty() && piles[index].peek().getFaceUp()) {
+            cards.push(piles[index].pop());
+        }
+        return cards;
     }
     */
 }
